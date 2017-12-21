@@ -1,0 +1,72 @@
+{
+    "general": {
+        "score": {
+            "infosec": 678,
+            "computer": 740,
+            "network": 1000,
+            "score": 725,
+            "price": "$1,900.00",
+            "umbrella": true,
+            "approved": true,
+            "total": "$2,257.51"
+        },
+        "score_percent": {
+            "infosec": 67.8,
+            "computer": 74,
+            "network": 100,
+            "score": 72.5,
+            "scale": 62.086226948328
+        },
+        "info": {
+            "company_size": "1-5 employees",
+            "annual_revenue": "Less than $1 million",
+            "industry": "Accounting",
+            "no_of_pcs": "1",
+            "no_of_locations": "1",
+            "additional_insured": "None"
+        },
+        "policy_number": "ers-61",
+        "bind_date": "2017-11-30 21:54:49",
+        "expire_date": "2018-11-30 21:54:49",
+        "fees": [
+            {
+                "name": "Brokerage Fee",
+                "value": "$250.00"
+            },
+            {
+                "name": "Surplus Lines Tax",
+                "value": "$104.28"
+            },
+            {
+                "name": "Stamping Office Fee",
+                "value": "$3.23"
+            }
+        ],
+        "agent": {
+            "company": "ERS Insurance",
+            "companyabbr": "EI",
+            "address": {
+                "street": "123 Test Address",
+                "city": "CityName",
+                "state": "TX",
+                "zip": "12345"
+            },
+            "phone": "210 787-8917",
+            "name": "Roberto",
+            "logo": "http:\/\/www.roberthechtdesign.com\/ers\/wp-content\/uploads\/2017\/07\/ERS_Logo.png"
+        },
+        "client": {
+            "policy": "ers-61",
+            "policy_date": "Dec 20th 2017",
+            "organization": "Test 99",
+            "address": {
+                "street": "8101 Viola",
+                "city": "Lubbock",
+                "state": "TX",
+                "zip": "79424"
+            },
+            "phone": "123 123-1234"
+        }
+    },
+    "signature": {}
+}

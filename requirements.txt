@@ -1,2 +1,4 @@
 Django==2.0
 djangorestframework==3.7.3
+requests==2.18.4
+lxml==4.1.1

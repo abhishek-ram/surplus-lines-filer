@@ -1,4 +1,4 @@
-"""sl_filer URL Configuration
+"""policy_filer URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.0/topics/http/urls/
@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from policy_filer.api import views
 
 urlpatterns = [
+    path('api/filings/', views.FilingLC.as_view()),
     path('admin/', admin.site.urls),
 ]

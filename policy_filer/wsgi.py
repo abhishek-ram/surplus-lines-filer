@@ -1,5 +1,5 @@
 """
-WSGI config for sl_filer project.
+WSGI config for policy_filer project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sl_filer.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "policy_filer.settings")
 
 application = get_wsgi_application()
