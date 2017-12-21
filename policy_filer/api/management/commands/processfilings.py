@@ -5,7 +5,6 @@ from policy_filer.api.models import Filing
 from policy_filer.api.utils import ERSServer, Policy
 from policy_filer import efs
 from collections import defaultdict
-from lxml import etree as ET
 import logging
 
 logger = logging.getLogger('sl-filer')
@@ -36,6 +35,10 @@ class Command(BaseCommand):
             state_efs_cls = getattr(efs, '%sEFS' % state)
             state_efs = state_efs_cls(**settings.EFS_SERVERS[state])
 
+            logger.info('Building the batch request file for all filings')
             batch_request = state_efs.build_batch_request(policies)
-            logger.info('Batch request built successfully')
-            print(ET.tostring(batch_request, pretty_print=True).decode())
+
+            logger.info('Submitting the batch request for the filings')
+            log_id = state_efs.submit_batch_request(batch_request)
+
+            logger.info('Batch uploaded successfully with log id %s' % log_id)

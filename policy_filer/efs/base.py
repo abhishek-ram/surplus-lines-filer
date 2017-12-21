@@ -23,5 +23,5 @@ class BaseEFS(object):
     def build_new_policy(policy_info):
         pass
 
-    def submit_batch_request(self):
+    def submit_batch_request(self, batch_request):
         pass

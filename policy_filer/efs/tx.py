@@ -1,5 +1,9 @@
 from .base import BaseEFS
 from policy_filer.api.utils import Policy
+from django.conf import settings
+from django.utils import timezone
+from lxml import etree as ET
+import requests
 
 
 class TexasEFS(BaseEFS):
@@ -11,10 +15,10 @@ class TexasEFS(BaseEFS):
     SCHEMA_LOCATION = 'http://www.slsot.org/efs ' \
                       'http://efstest.slsot.org/efstest/xsd/SlsotEfsSchema2.xsd'
 
-    def build_batch_request(self, requests):
+    def build_batch_request(self, b_requests):
         batch = []
         total_gross = 0
-        for action, policy_info in requests:
+        for action, policy_info in b_requests:
             p_builder = getattr(self, 'build_%s' % action)
             batch.append(p_builder(policy_info))
             total_gross += policy_info.total_gross
@@ -60,3 +64,43 @@ class TexasEFS(BaseEFS):
             self.E.ECP('N'),
         )
         return new_policy
+
+    def login_request(self, filename):
+        l_params = {
+            'requestType': 'L',
+            'userID': self.user_id,
+            'password': self.password,
+            'fileName': filename,
+        }
+        response = requests.post(
+            '%s/FileUpload' % self.base_url, params=l_params)
+        response.raise_for_status()
+        return response.cookies.get('session ID')
+
+    def logout_request(self, session_id):
+        l_params = {
+            'requestType': 'O',
+        }
+        response = requests.post(
+            '%s/FileUpload' % self.base_url,
+            params=l_params,
+            headers={'cookie': session_id}
+        )
+        response.raise_for_status()
+
+    def submit_batch_request(self, batch_request):
+        filename = 'Batch Request %s.xml' % timezone.now().isoformat()
+        if settings.DEBUG:
+            return '0000000'
+        else:
+            session_id = self.login_request(filename)
+            upload_file = requests.post(
+                '%s/FileUpload' % self.base_url,
+                params={'requestType': 'M'},
+                headers={'cookie': session_id},
+                files={'file': (filename,
+                                ET.tostring(batch_request, encoding='utf8'))
+                       }
+            )
+            upload_file.raise_for_status()
+            self.logout_request(session_id)
